@@ -58,3 +58,62 @@ unknown = 1
 ```elixir
 a
 ```
+
+```elixir
+[head | tail] = [1, 2, 3]
+
+IO.puts(head)
+tail
+```
+
+```elixir
+[head | tail] = []
+```
+
+```elixir
+[4 | [0 | [1, 2, 3]]]
+```
+
+```elixir
+x = 1
+1 = x
+x = 2
+2 = x
+^x = 3
+```
+
+```elixir
+[head | _] = [1, 2, 3]
+head
+```
+
+```elixir
+length([1, 2]) = 2
+```
+
+## case, cond, and if
+
+https://elixir-lang.org/getting-started/case-cond-and-if.html
+
+```elixir
+case {1, 2, 3} do
+  {4, 5, 6} ->
+    "no match"
+
+  {1, x, 3} ->
+    "match, x is bound"
+
+  _ ->
+    "match"
+end
+```
+
+```elixir
+x = 1
+
+case 2 do
+  ^x -> "won't match"
+  _ when false -> "won't match"
+  _ -> "match"
+end
+```

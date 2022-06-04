@@ -17,8 +17,10 @@ to install, and get started
 ### Useful elixir functions
 `h` | displays the documentation for any function, eg. `h func/arity`
 
-### Useful setup
+### Useful reference
 Set mix config | https://hexdocs.pm/hex/Mix.Tasks.Hex.Config.html
+
+Elizir docs: https://hexdocs.pm/elixir/api-reference.html
 
 
 ## ide
