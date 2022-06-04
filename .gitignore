@@ -6,6 +6,7 @@
 erl_crash.dump
 *.ez
 *.beam
+autosaved/
 /config/*.secret.exs
 .elixir_ls/
 © 2022 GitHub, Inc.
