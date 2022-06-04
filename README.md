@@ -18,9 +18,13 @@ to install, and get started
 `h` | displays the documentation for any function, eg. `h func/arity`
 
 ### Useful reference
+
+
 Set mix config | https://hexdocs.pm/hex/Mix.Tasks.Hex.Config.html
 
-Elizir docs: https://hexdocs.pm/elixir/api-reference.html
+introduction | https://elixir-lang.org/getting-started/introduction.html
+
+Elizir docs | https://hexdocs.pm/elixir/api-reference.html
 
 
 ## ide
