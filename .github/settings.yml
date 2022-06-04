@@ -1,0 +1,20 @@
+repository:
+  name: elixir-practice
+
+  description: A repo to practice elixir
+
+  homepage: https://github.com/CharlesFauman/elixir-practice
+
+  default_branch: main
+
+labels:
+  - name: bug
+    color: CC0000
+    description: An issue with the system.
+
+  - name: feature
+    color: '#336699'
+    description: New functionality.
+
+branches:
+  - name: main
