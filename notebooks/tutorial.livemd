@@ -4,6 +4,57 @@
 
 Following https://elixir-lang.org/getting-started/basic-types.html
 
-```elixir
+## Anonymous Functions
 
+```elixir
+add = fn a, b -> a + b end
+```
+
+```elixir
+add.(1, 2)
+```
+
+```elixir
+is_function(add)
+```
+
+```elixir
+double = fn a -> add.(a, a) end
+```
+
+```elixir
+double.(2)
+```
+
+```elixir
+:a < :b
+```
+
+## Pattern matching
+
+https://elixir-lang.org/getting-started/pattern-matching.html
+
+```elixir
+x = 1
+1 = x
+```
+
+```elixir
+1 = unknown
+```
+
+```elixir
+unknown = 1
+```
+
+```elixir
+1 = unknown
+```
+
+```elixir
+{a, b, c} = {:hello, "world", 42}
+```
+
+```elixir
+a
 ```
