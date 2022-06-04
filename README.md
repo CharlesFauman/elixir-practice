@@ -10,7 +10,8 @@ to install, and get started
 `elixir SCRIPT.exs` | Run an elixir script
 `iex` | interactive shell
 `mix` | provides tasks for creating, compiling, testing your application, managing its dependencies and much more
-`livebook server --data-path $(pwd)/notebooks` | starts local livebook at this directory
+`livebook server --home $(pwd)/notebooks --data-path $(pwd)/notebooks` | starts local livebook at this directory
+
 
 
 ### Useful elixir functions
