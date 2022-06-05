@@ -1,5 +1,7 @@
 # Practice with Elixir
 
+Status: next: Modules and attributes, tutorial pt. 2
+
 ## Setup
 Following https://elixir-lang.org/getting-started/introduction.html#installation
 
