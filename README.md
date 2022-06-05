@@ -8,6 +8,7 @@ to install, and get started
 ### Useful commands
 `elixir --version` | For testing the installation worked
 `elixir SCRIPT.exs` | Run an elixir script
+`elixirc __.ex` | build an elixir file. Not .exs vs .ex is convention, but doesn't do anything
 `iex` | interactive shell
 `mix` | provides tasks for creating, compiling, testing your application, managing its dependencies and much more
 `livebook server --home $(pwd)/notebooks --data-path $(pwd)/notebooks` | starts local livebook at this directory
@@ -25,6 +26,10 @@ Set mix config | https://hexdocs.pm/hex/Mix.Tasks.Hex.Config.html
 introduction | https://elixir-lang.org/getting-started/introduction.html
 
 Elizir docs | https://hexdocs.pm/elixir/api-reference.html
+
+Naming conventions | https://hexdocs.pm/elixir/main/naming-conventions.html#trailing-question-mark-foo
+
+railway programming | https://cbailey.co.uk/posts/elixirs_with_statement_and_railway_oriented_programming
 
 
 ## ide

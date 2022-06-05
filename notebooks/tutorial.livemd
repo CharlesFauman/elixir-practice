@@ -205,3 +205,466 @@ x
 ```elixir
 "\u1D4B6"
 ```
+
+```elixir
+String.codepoints("👩‍🚒")
+```
+
+```elixir
+"hello" <> <<0>>
+```
+
+```elixir
+# num : num_bits. default is byte, 8 bits
+<<42>> == <<42::8>>
+```
+
+```elixir
+<<42>> == <<42::16>>
+```
+
+```elixir
+<<0::1, 0::1, 1::1, 1::1>> == <<3::4>>
+```
+
+```elixir
+# 257 with 8 bits is truncated 
+<<1>> == <<257>>
+```
+
+```elixir
+<<head::binary-size(2), rest::binary>> = <<0, 1, 2, 3>>
+```
+
+```elixir
+head
+```
+
+```elixir
+rest
+```
+
+```elixir
+<<head, rest::binary>> = "über"
+```
+
+```elixir
+<<head::utf8>>
+```
+
+```elixir
+rest
+```
+
+```elixir
+<<x::utf8, rest::binary>> = "über"
+```
+
+```elixir
+<<x::utf8>>
+```
+
+```elixir
+rest
+```
+
+```elixir
+[?h, ?e, ?l, ?l, ?o]
+```
+
+```elixir
+?h
+```
+
+```elixir
+heartbeats_per_minute = [99, 97, 116]
+```
+
+```elixir
+[45, "a"]
+```
+
+## Keyword lists and maps
+
+```elixir
+String.split("1  2  3", " ", trim: true)
+```
+
+```elixir
+String.split("1  2  3", " ", trim: true)
+```
+
+```elixir
+[{:trim, true}] == [trim: true]
+```
+
+```elixir
+[a: 1, b: 2] ++ [c: 3]
+```
+
+```elixir
+list = [a: 1] ++ [a: 2]
+```
+
+```elixir
+list[:a]
+```
+
+```elixir
+[a: a, b: b] = [a: 1, b: 2]
+```
+
+```elixir
+[b: b, a: a] = [a: 1, b: 2]
+```
+
+```elixir
+map = %{:a => 1, 2 => :b}
+```
+
+```elixir
+map[:a]
+```
+
+```elixir
+%{:a => a} = %{:a => 1, 2 => :b}
+```
+
+```elixir
+a
+```
+
+```elixir
+%{:a => a} == %{:a => 1, 2 => :b}
+```
+
+```elixir
+1 == 1.0
+```
+
+```elixir
+1 === 1.0
+```
+
+```elixir
+n = 1
+map = %{n => :one}
+
+map[n]
+```
+
+```elixir
+n = 2
+
+map[n]
+```
+
+```elixir
+Map.get(map, 1)
+```
+
+```elixir
+map = Map.put(map, 2, "two")
+```
+
+```elixir
+map.1
+```
+
+```elixir
+map = %{map | 3 => 3}
+```
+
+```elixir
+%{map | 1 => 3}
+```
+
+```elixir
+map = %{a: 1, b: 2}
+```
+
+```elixir
+map.a
+```
+
+```elixir
+if true, do: "This will be seen", else: "This won't"
+```
+
+```elixir
+users = [
+  john: %{name: "John", age: 27, languages: ["Erlang", "Ruby", "Elixir"]},
+  mary: %{name: "Mary", age: 29, languages: ["Elixir", "F#", "Clojure"]}
+]
+```
+
+```elixir
+users[:mary].age
+```
+
+```elixir
+users = put_in(users[:john].age, 31)
+```
+
+```elixir
+users =
+  update_in(
+    users[:mary].languages,
+    fn languages ->
+      List.delete(languages, "Clojure")
+    end
+  )
+```
+
+## Modules and functions
+
+https://elixir-lang.org/getting-started/modules-and-functions.html
+
+```elixir
+defmodule Math do
+  def sum(a, b) do
+    a + b
+  end
+
+  def mult(a, b) do
+    a * b
+  end
+end
+```
+
+```elixir
+Math.sum(1, 2)
+```
+
+.ex is same as .exs except for intention - .ex is meant to be compiled, .exs is scripting
+
+```elixir
+defmodule Math do
+  def sum(a, b) do
+    do_sum(a, b)
+  end
+
+  defp do_sum(a, b) do
+    a + b
+  end
+end
+```
+
+```elixir
+Math.sum(1, 2)
+```
+
+```elixir
+Math.do_sum(1, 2)
+```
+
+```elixir
+def zero?(0) do
+  true
+end
+```
+
+```elixir
+defmodule Math do
+  def zero?(0) do
+    true
+  end
+
+  def zero?(x) when is_integer(x) do
+    false
+  end
+end
+```
+
+```elixir
+Math.zero?(3)
+```
+
+```elixir
+Math.zero?(0)
+```
+
+```elixir
+Math.zero?(0.0)
+```
+
+```elixir
+defmodule Math do
+  def zero?(0), do: true
+  def zero?(x) when is_integer(x), do: false
+end
+```
+
+```elixir
+fun = &Math.zero?/1
+```
+
+```elixir
+fun.(3)
+```
+
+```elixir
+&is_function/1
+```
+
+```elixir
+add = &+/2
+```
+
+```elixir
+add.(1, 5)
+```
+
+```elixir
+# same as fn x -> x + 1 end
+fun = &(&1 + 1)
+```
+
+```elixir
+fun.(1)
+```
+
+```elixir
+fun.(1, 2)
+```
+
+```elixir
+defmodule Concat do
+  def join(a, b, sep \\ " ") do
+    a <> sep <> b
+  end
+end
+
+# => Hello world
+IO.puts(Concat.join("Hello", "world"))
+# => Hello_world
+IO.puts(Concat.join("Hello", "world", "_"))
+```
+
+Any expression is allowed to serve as a default value, but it won’t be evaluated during the function definition. Every time the function is invoked and any of its default values have to be used, the expression for that default value will be evaluated:
+
+```elixir
+defmodule Concat do
+  # A function head declaring defaults
+  def join(a, b \\ nil, sep \\ " ")
+
+  def join(a, b, _sep) when is_nil(b) do
+    a
+  end
+
+  def join(a, b, sep) do
+    a <> sep <> b
+  end
+end
+
+# => Hello world
+IO.puts(Concat.join("Hello", "world"))
+# => Hello_world
+IO.puts(Concat.join("Hello", "world", "_"))
+# => Hello
+IO.puts(Concat.join("Hello"))
+```
+
+```elixir
+defmodule Concat do
+  def join(a, b) do
+    IO.puts("***First join")
+    a <> b
+  end
+
+  def join(a, b, sep \\ " ") do
+    IO.puts("***Second join")
+    a <> sep <> b
+  end
+end
+```
+
+## Recursion
+
+```elixir
+defmodule Recursion do
+  def print_multiple_times(msg, n) when n > 0 do
+    IO.puts(msg)
+    print_multiple_times(msg, n - 1)
+  end
+
+  def print_multiple_times(_msg, 0) do
+    :ok
+  end
+end
+
+Recursion.print_multiple_times("Hello!", 3)
+```
+
+```elixir
+defmodule Math do
+  def sum_list([head | tail], accumulator) do
+    sum_list(tail, head + accumulator)
+  end
+
+  def sum_list([], accumulator) do
+    accumulator
+  end
+
+  def sum_list(list) do
+    sum_list(list, 0)
+  end
+end
+
+IO.puts(Math.sum_list([1, 2, 3]))
+```
+
+## Enumerables and streams
+
+```elixir
+Enum.reduce([1, 2, 3], 0, fn x, acc -> x + acc end)
+```
+
+```elixir
+Enum.map([1, 2, 3], fn x -> x * 2 end)
+```
+
+```elixir
+Enum.reduce([1, 2, 3], 0, &+/2)
+```
+
+```elixir
+Enum.map([1, 2, 3], &(&1 * 2))
+```
+
+```elixir
+Enum.reduce(1..7, 0, &+/2)
+```
+
+```elixir
+Enum.to_list(1..2)
+```
+
+```elixir
+Enum.to_list(10..1//-2)
+```
+
+```elixir
+Enum.to_list(10..0//-2)
+```
+
+```elixir
+odd? = &(rem(&1, 2) != 0)
+Enum.filter(1..3, odd?)
+```
+
+```elixir
+1..100_000 |> Enum.map(&(&1 * 3)) |> Enum.filter(odd?) |> Enum.sum()
+```
+
+enum is eager. Use streams for lazy
+
+```elixir
+1..100_000 |> Stream.map(&(&1 * 3)) |> Stream.filter(odd?) |> Enum.sum()
+```
+
+## Processes
+
+```elixir
+
+```
