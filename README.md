@@ -31,6 +31,8 @@ Naming conventions | https://hexdocs.pm/elixir/main/naming-conventions.html#trai
 
 railway programming | https://cbailey.co.uk/posts/elixirs_with_statement_and_railway_oriented_programming
 
+Elixir questions | https://elixirforum.com/
+
 
 ## ide
 

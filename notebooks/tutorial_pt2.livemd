@@ -152,9 +152,156 @@ IO.binwrite(file, "world")
 ```
 
 ```elixir
+# The BEAM will close the file when the process that opened it exits
+# - unless the exit is abnormal
 File.close(file)
 ```
 
 ```elixir
 File.read("hello")
+```
+
+```elixir
+Path.expand("~/hello")
+```
+
+```elixir
+Path.join("foo", "bar")
+```
+
+```elixir
+{:ok, file} = File.open("hello", [:write])
+
+File.close(file)
+
+IO.write(file, "is anybody out there")
+```
+
+```elixir
+pid =
+  spawn(fn ->
+    receive do: (msg -> IO.inspect(msg))
+  end)
+```
+
+```elixir
+IO.write(pid, "hello")
+```
+
+## alias, require, and import
+
+```elixir
+defmodule Stats do
+  alias Math.List, as: List
+  # same as above
+  alias Math.List
+  # In the remaining module definition List expands to Math.List.
+end
+```
+
+```elixir
+defmodule Math do
+  def plus(a, b) do
+    alias Math.List
+    # ...
+  end
+
+  def minus(a, b) do
+    # ...
+  end
+end
+```
+
+```elixir
+Integer.is_odd(3)
+```
+
+```elixir
+# allows use of macros defined in the Integer module
+require Integer
+Integer.is_odd(3)
+```
+
+```elixir
+# import is like require but don't need the module name anymore!
+import Integer, only: [is_odd: 1]
+is_odd(2)
+```
+
+```elixir
+defmodule Math do
+  def some_function do
+    import List, only: [duplicate: 2]
+    duplicate(:ok, 10)
+  end
+end
+
+Math.some_function()
+```
+
+```elixir
+duplicate(:ok, 10)
+```
+
+```elixir
+defmodule AssertionTest do
+  use ExUnit.Case, async: true
+
+  test "always pass" do
+    assert true
+  end
+end
+```
+
+Don't use `use` when an import or alias would do
+
+```elixir
+:"Elixir.String" == String
+```
+
+```elixir
+is_atom(String)
+```
+
+```elixir
+to_string(String)
+```
+
+```elixir
+List.flatten([1, [2], 3])
+```
+
+```elixir
+:"Elixir.List".flatten([1, [2], 3])
+```
+
+```elixir
+:lists.flatten([1, [2], 3])
+```
+
+```elixir
+defmodule Foo do
+  defmodule Bar do
+  end
+end
+```
+
+```elixir
+defmodule Foo.Bar do
+end
+
+defmodule Foo do
+  alias Foo.Bar
+  # Can still access it as `Bar`
+end
+```
+
+```elixir
+alias MyApp.{Foo, Bar, Baz}
+```
+
+## Module attributes
+
+```elixir
+
 ```
