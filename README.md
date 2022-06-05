@@ -39,7 +39,9 @@ Elixir questions | https://elixirforum.com/
 ### Vscode
 
 #### Extensions
-ElixirLS - https://thinkingelixir.com/elixir-in-vs-code/#Elixir_development_extensions
+ElixirLS | https://thinkingelixir.com/elixir-in-vs-code/#Elixir_development_extensions
+
+Livebook for VSCode | https://marketplace.visualstudio.com/items?itemName=josecfreittas.livebook
 
 
 ### Livebook
