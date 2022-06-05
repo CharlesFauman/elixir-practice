@@ -666,5 +666,30 @@ enum is eager. Use streams for lazy
 ## Processes
 
 ```elixir
+pid = spawn(fn -> 1 + 2 end)
+```
 
+```elixir
+Process.alive?(pid)
+```
+
+```elixir
+self()
+```
+
+```elixir
+Process.alive?(self())
+```
+
+### Sending and receiving messages
+
+```elixir
+send(self(), {:hello, "world"})
+```
+
+```elixir
+receive do
+  {:hello, msg} -> msg
+  {:world, _msg} -> "won't match"
+end
 ```
