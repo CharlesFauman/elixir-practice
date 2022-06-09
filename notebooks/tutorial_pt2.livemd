@@ -302,6 +302,667 @@ alias MyApp.{Foo, Bar, Baz}
 
 ## Module attributes
 
+https://elixir-lang.org/getting-started/module-attributes.html
+
+```elixir
+defmodule Math do
+  @moduledoc """
+  Provides math-related functions.
+  
+  ## Examples
+  
+      iex> Math.sum(1, 2)
+      3
+  
+  """
+
+  @doc """
+  Calculates the sum of two numbers.
+  """
+  def sum(a, b), do: a + b
+end
+```
+
+```elixir
+defmodule MyServer do
+  @initial_state %{host: "127.0.0.1", port: 3456}
+  IO.inspect(@initial_state)
+end
+```
+
+```elixir
+defmodule MyServer do
+  @unknown
+end
+```
+
+```elixir
+defmodule MyServer do
+  @my_data 14
+  def first_data, do: @my_data
+  @my_data 13
+  def second_data, do: @my_data
+end
+```
+
+```elixir
+MyServer.first_data()
+```
+
+```elixir
+MyServer.second_data()
+```
+
+```elixir
+defmodule MyApp.Status do
+  @service URI.parse("https://example.com")
+  def status(email) do
+    SomeHttpClient.get(@service)
+  end
+end
+```
+
+```elixir
+defmodule Foo do
+  Module.register_attribute(__MODULE__, :param, accumulate: true)
+
+  @param :foo
+  @param :bar
+  # here @param == [:bar, :foo]
+end
+```
+
 ```elixir
 
+```
+
+## Structs
+
+```elixir
+defmodule User do
+  defstruct name: "John", age: 27
+end
+```
+
+```elixir
+%User{}
+```
+
+```elixir
+%User{name: "Johnny"}
+```
+
+```elixir
+%User{oops: :field}
+```
+
+```elixir
+william = %User{name: "William"}
+
+old_william = %{william | age: 87}
+
+old_william.age
+```
+
+```elixir
+%User{age: 87} = old_william
+```
+
+```elixir
+%User{age: 87} = %User{}
+```
+
+```elixir
+%User{age: 87} = %User{age: 87}
+```
+
+```elixir
+is_map(william)
+```
+
+```elixir
+defmodule Product do
+  defstruct [:name]
+end
+```
+
+```elixir
+defmodule Product do
+  defstruct [:name, price: 5]
+end
+```
+
+```elixir
+defmodule Product do
+  defstruct [price: 5, :name]
+end
+```
+
+```elixir
+defmodule Car do
+  @enforce_keys [:make]
+  defstruct [:model, :make]
+end
+```
+
+```elixir
+%Car{}
+```
+
+```elixir
+%Car{make: 3}
+```
+
+## Protocols
+
+```elixir
+defmodule Utility do
+  def type(value) when is_binary(value), do: "string"
+  def type(value) when is_integer(value), do: "integer"
+  # ... other implementations ...
+end
+```
+
+```elixir
+defprotocol Utility do
+  @spec type(t) :: String.t()
+  def type(value)
+end
+
+defimpl Utility, for: BitString do
+  def type(_value), do: "string"
+end
+
+defimpl Utility, for: Integer do
+  def type(_value), do: "integer"
+end
+```
+
+```elixir
+Utility.type(3)
+```
+
+```elixir
+Utility.type("ro")
+```
+
+```elixir
+defprotocol Size do
+  @doc "Calculates the size (and not the length!) of a data structure"
+  def size(data)
+end
+
+defimpl Size, for: BitString do
+  def size(string), do: byte_size(string)
+end
+
+defimpl Size, for: Tuple do
+  def size(tuple), do: tuple_size(tuple)
+end
+
+defimpl Size, for: Map do
+  def size(map), do: map_size(map)
+end
+```
+
+```elixir
+Size.size("foo")
+```
+
+```elixir
+Size.size({:ok, "hello"})
+```
+
+```elixir
+Size.size(%{label: "some label"})
+```
+
+```elixir
+Size.size([1, 2, 3])
+```
+
+```elixir
+Size.size(%{})
+```
+
+```elixir
+set = %MapSet{} = MapSet.new()
+
+Size.size(set)
+```
+
+```elixir
+defimpl Size, for: MapSet do
+  def size(set), do: MapSet.size(set)
+end
+```
+
+```elixir
+set = %MapSet{} = MapSet.new()
+
+Size.size(set)
+```
+
+```elixir
+defimpl Size, for: Any do
+  def size(_), do: 0
+end
+```
+
+```elixir
+defmodule OtherUser do
+  @derive [Size]
+  defstruct [:name, :age]
+end
+```
+
+```elixir
+defprotocol Size do
+  @fallback_to_any true
+  def size(data)
+end
+```
+
+```elixir
+Enum.map([1, 2, 3], fn x -> x * 2 end)
+```
+
+```elixir
+Enum.reduce(1..3, 0, fn x, acc -> x + acc end)
+```
+
+```elixir
+to_string(:hello)
+```
+
+```elixir
+"age: #{25}"
+```
+
+```elixir
+tuple = {1, 2, 3}
+```
+
+```elixir
+"tuple: #{tuple}"
+```
+
+```elixir
+"tuple: #{inspect(tuple)}"
+```
+
+```elixir
+inspect(&(&1 + 2))
+```
+
+## Comprehensions
+
+```elixir
+for n <- [1, 2, 3, 4], do: n * n
+```
+
+```elixir
+for n <- 1..4, do: n * n
+```
+
+```elixir
+values = [good: 1, good: 2, bad: 3, good: 4]
+```
+
+```elixir
+for {:good, n} <- values, do: n * n
+```
+
+```elixir
+for n <- 0..5, rem(n, 3) == 0, do: n * n
+```
+
+```elixir
+for i <- [:a, :b, :c], j <- [1, 2], do: {i, j}
+```
+
+```elixir
+pixels = <<213, 45, 132, 64, 76, 32, 76, 0, 0, 234, 32, 15>>
+```
+
+```elixir
+for <<r::8, g::8, b::8 <- pixels>>, do: {r, g, b}
+```
+
+```elixir
+for <<c <- " hello world ">>, c != ?\s, into: "", do: <<c>>
+```
+
+```elixir
+for {key, val} <- %{"a" => 1, "b" => 2}, into: %{}, do: {key, val * val}
+```
+
+```elixir
+# stream = IO.stream(:stdio, :line)
+# for line <- stream, into: stream do
+#   String.upcase(line) <> "\n"
+# end
+```
+
+## Sigils
+
+```elixir
+regex = ~r/foo|bar/
+```
+
+```elixir
+"foo" =~ regex
+```
+
+```elixir
+"BAR" =~ regex
+```
+
+```elixir
+"HELLO" =~ ~r/hello/i
+```
+
+```elixir
+# All equivalent:
+~r/hello/
+~r|hello|
+~r"hello"
+~r'hello'
+~r(hello)
+~r[hello]
+~r{hello}
+~r<hello>
+```
+
+```elixir
+~s(this is a string with "double" quotes, not 'single' ones)
+```
+
+```elixir
+~c(this is a char list containing 'single quotes')
+```
+
+```elixir
+~w(
+  foo
+  bar
+  bat
+)
+```
+
+```elixir
+~w(foo bar bat)a
+```
+
+```elixir
+~w(foo bar bat)c
+```
+
+```elixir
+~s(String with escape codes \u{1F600}
+ \x26 #{"inter" <> "polation"})
+```
+
+```elixir
+~S(String without escape \u{1F600}
+codes \x26 without #{interpolation})
+```
+
+```elixir
+~s"""
+this is
+a heredoc string!
+"""
+```
+
+```elixir
+~S"""
+Converts double-quotes to single-quotes.
+
+## Examples
+
+    iex> convert("\"foo\"")
+    "'foo'"
+
+"""
+```
+
+```elixir
+d = ~D[2019-10-31]
+```
+
+```elixir
+t = ~T[23:00:07.0]
+```
+
+```elixir
+ndt = ~N[2019-10-31 23:00:07]
+```
+
+```elixir
+dt = ~U[2019-10-31 19:59:03Z]
+```
+
+```elixir
+%DateTime{minute: minute, time_zone: time_zone} = dt
+```
+
+```elixir
+minute
+```
+
+```elixir
+time_zone
+```
+
+```elixir
+sigil_r(<<"foo">>, 'i')
+```
+
+```elixir
+h(sigil_r)
+```
+
+```elixir
+defmodule MySigils do
+  def sigil_i(string, []), do: String.to_integer(string)
+  def sigil_i(string, [?n]), do: -String.to_integer(string)
+end
+```
+
+```elixir
+import MySigils
+~i(23)
+```
+
+```elixir
+~i/23/n
+```
+
+## try, catch, and rescue
+
+```elixir
+:foo + 1
+```
+
+```elixir
+raise "oops"
+```
+
+```elixir
+raise ArgumentError, message: "invalid argument foo"
+```
+
+```elixir
+raise BellyFlopError, message: "invalid argument foo"
+```
+
+```elixir
+defmodule MyError do
+end
+
+raise MyError
+```
+
+```elixir
+defmodule MyError do
+  defexception message: "default message", woah: "yo"
+end
+
+raise MyError
+```
+
+```elixir
+raise MyError, message: "custom message", woah: "ha"
+```
+
+```elixir
+try do
+  raise "oops"
+rescue
+  e in RuntimeError -> e
+end
+```
+
+```elixir
+try do
+  raise "oops"
+rescue
+  RuntimeError -> "Error!"
+end
+```
+
+```elixir
+File.read("doop")
+```
+
+```elixir
+File.write("hello", "hello world")
+```
+
+```elixir
+File.read("hello")
+```
+
+```elixir
+case File.read("hello") do
+  {:ok, body} -> IO.puts("Success: #{body}")
+  {:error, reason} -> IO.puts("Error: #{reason}")
+end
+```
+
+```elixir
+File.read!("unknown")
+```
+
+```elixir
+try do
+  raise ArgumentError, message: "yo"
+rescue
+  e ->
+    reraise e, __STACKTRACE__
+end
+```
+
+```elixir
+try do
+  Enum.each(-50..50, fn x ->
+    if rem(x, 13) == 0, do: throw(x)
+  end)
+
+  "Got nothing"
+catch
+  x -> "Got #{x}"
+end
+```
+
+```elixir
+Enum.find(-50..50, &(rem(&1, 13) == 0))
+```
+
+```elixir
+# spawn_link(fn -> exit(1) end)
+```
+
+```elixir
+try do
+  exit("I am exiting")
+catch
+  :exit, _ -> "not really"
+end
+
+"not really"
+```
+
+```elixir
+{:ok, file} = File.open("sample", [:utf8, :write])
+```
+
+```elixir
+try do
+  IO.write(file, "ola")
+  raise "oops, something went wrong"
+after
+  File.close(file)
+end
+```
+
+```elixir
+defmodule RunAfter do
+  def without_even_trying do
+    raise "oops"
+  after
+    IO.puts("cleaning up!")
+  end
+end
+
+RunAfter.without_even_trying()
+```
+
+```elixir
+x = 2
+```
+
+```elixir
+try do
+  1 / x
+rescue
+  ArithmeticError -> :infinity
+else
+  y when y < 1 and y > -1 ->
+    :small
+
+  _ ->
+    :large
+end
+```
+
+```elixir
+try do
+  raise "fail"
+  what_happened = :did_not_raise
+rescue
+  _ -> what_happened = :rescued
+end
+
+what_happened
+```
+
+```elixir
+what_happened =
+  try do
+    raise "fail"
+    :did_not_raise
+  rescue
+    _ -> :rescued
+  end
+```
+
+```elixir
+try do
+  woop = :did_not_raise
+  raise "fail"
+rescue
+  _ -> woop
+end
 ```

@@ -1,0 +1,56 @@
+# tutorial_pt3
+
+## Optional syntax sheet
+
+```elixir
+length([1, 2, 3]) == length([1, 2, 3])
+```
+
+```elixir
+if true do
+  :this
+else
+  :that
+end ==
+  if true, do: :this, else: :that
+```
+
+```elixir
+variable? = false
+
+if variable? do
+  :a
+else
+  :b
+end
+```
+
+```elixir
+if variable?, do: :a, else: :b
+```
+
+```elixir
+if variable?, do: :a, else: :b
+```
+
+```elixir
+if variable?, [{:do, :a}, {:else, :b}]
+```
+
+```elixir
+if(variable?, [{:do, :a}, {:else, :b}])
+```
+
+```elixir
+defmodule Math do
+  def add(a, b) do
+    a + b
+  end
+end
+```
+
+```elixir
+defmodule(Math, [
+  {:do, def(add(a, b), [{:do, a + b}])}
+])
+```

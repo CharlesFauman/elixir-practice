@@ -1,6 +1,7 @@
 # Practice with Elixir
 
-Status: next: Modules and attributes, tutorial pt. 2
+Status: next: Erlang libraries, tutorial pt. 3
+https://elixir-lang.org/getting-started/erlang-libraries.html
 
 ## Setup
 Following https://elixir-lang.org/getting-started/introduction.html#installation
@@ -9,10 +10,17 @@ to install, and get started
 
 ### Useful commands
 `elixir --version` | For testing the installation worked
+
 `elixir SCRIPT.exs` | Run an elixir script
+
 `elixirc __.ex` | build an elixir file. Not .exs vs .ex is convention, but doesn't do anything
+
 `iex` | interactive shell
+
 `mix` | provides tasks for creating, compiling, testing your application, managing its dependencies and much more
+
+`mix format` | format elixir code in a standardized way
+
 `livebook server --home $(pwd)/notebooks --data-path $(pwd)/notebooks` | starts local livebook at this directory
 
 
@@ -34,6 +42,8 @@ Naming conventions | https://hexdocs.pm/elixir/main/naming-conventions.html#trai
 railway programming | https://cbailey.co.uk/posts/elixirs_with_statement_and_railway_oriented_programming
 
 Elixir questions | https://elixirforum.com/
+
+OTP (Open Telecom Platform) | https://www.educative.io/edpresso/what-is-otp-in-elixir
 
 
 ## ide
