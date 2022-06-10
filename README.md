@@ -1,8 +1,5 @@
 # Practice with Elixir
 
-Status: next: Erlang libraries, tutorial pt. 3
-https://elixir-lang.org/getting-started/erlang-libraries.html
-
 ## Setup
 Following https://elixir-lang.org/getting-started/introduction.html#installation
 
@@ -21,6 +18,8 @@ to install, and get started
 
 `mix format` | format elixir code in a standardized way
 
+`mix new path/to/new/project` | start a new project
+
 `livebook server --home $(pwd)/notebooks --data-path $(pwd)/notebooks` | starts local livebook at this directory
 
 
@@ -29,6 +28,8 @@ to install, and get started
 `h` | displays the documentation for any function, eg. `h func/arity`
 
 ### Useful reference
+
+Read you some erlang for great good | https://learnyousomeerlang.com/
 
 
 Set mix config | https://hexdocs.pm/hex/Mix.Tasks.Hex.Config.html
@@ -45,6 +46,9 @@ Elixir questions | https://elixirforum.com/
 
 OTP (Open Telecom Platform) | https://www.educative.io/edpresso/what-is-otp-in-elixir
 
+Library guidelines | https://hexdocs.pm/elixir/library-guidelines.html
+
+Meta-programming and DSLs (Domain Specific Languages) | https://elixir-lang.org/getting-started/meta/quote-and-unquote.html
 
 ## ide
 

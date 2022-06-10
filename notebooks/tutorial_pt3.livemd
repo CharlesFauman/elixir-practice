@@ -54,3 +54,318 @@ defmodule(Math, [
   {:do, def(add(a, b), [{:do, a + b}])}
 ])
 ```
+
+## Erlang Libraries
+
+```elixir
+String.to_charlist("Ø")
+```
+
+```elixir
+:binary.bin_to_list("Ø")
+```
+
+```elixir
+:io.format("Pi is approximately given by:~10.3f~n", [:math.pi()])
+```
+
+```elixir
+Base.encode16(:crypto.hash(:sha256, "Elixir"))
+```
+
+```elixir
+# def application do
+#   [extra_applications: [:crypto]]
+# end
+```
+
+```elixir
+digraph = :digraph.new()
+```
+
+```elixir
+coords = [{0.0, 0.0}, {1.0, 0.0}, {1.0, 1.0}]
+```
+
+```elixir
+[v0, v1, v2] = for c <- coords, do: :digraph.add_vertex(digraph, c)
+```
+
+```elixir
+:digraph.add_edge(digraph, v0, v1)
+```
+
+```elixir
+:digraph.add_edge(digraph, v1, v2)
+```
+
+```elixir
+:digraph.get_short_path(digraph, v0, v2)
+```
+
+```elixir
+table = :ets.new(:ets_test, [])
+```
+
+```elixir
+:ets.insert(table, {"China", 1_374_000_000})
+:ets.insert(table, {"India", 1_284_000_000})
+:ets.insert(table, {"USA", 322_000_000})
+```
+
+```elixir
+# :ets.i(table)
+```
+
+```elixir
+angle_45_deg = :math.pi() * 45.0 / 180.0
+```
+
+```elixir
+:math.sin(angle_45_deg)
+```
+
+```elixir
+:math.exp(55.0)
+```
+
+```elixir
+:math.log(7.694785265142018e23)
+```
+
+```elixir
+q = :queue.new()
+```
+
+```elixir
+q = :queue.in("A", q)
+```
+
+```elixir
+q = :queue.in("B", q)
+```
+
+```elixir
+q = :queue.in("C", q)
+```
+
+```elixir
+{value, q} = :queue.out(q)
+```
+
+```elixir
+{value, q} = :queue.out(q)
+```
+
+```elixir
+{value, q} = :queue.out(q)
+```
+
+```elixir
+{value, q} = :queue.out(q)
+```
+
+```elixir
+:rand.uniform()
+```
+
+```elixir
+_ = :rand.seed(:exs1024, {123, 123_534, 345_345})
+```
+
+```elixir
+:rand.uniform()
+```
+
+```elixir
+:rand.uniform(6)
+```
+
+```elixir
+song = """
+AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA
+"""
+
+compressed = :zlib.compress(song)
+```
+
+```elixir
+byte_size(song)
+```
+
+```elixir
+byte_size(compressed)
+```
+
+```elixir
+:zlib.uncompress(compressed)
+```
+
+## Debugging
+
+```elixir
+1..10
+|> IO.inspect()
+|> Enum.map(fn x -> x * 2 end)
+|> IO.inspect()
+|> Enum.sum()
+|> IO.inspect()
+```
+
+```elixir
+[1, 2, 3]
+|> IO.inspect(label: "before")
+|> Enum.map(&(&1 * 2))
+|> IO.inspect(label: "after")
+|> Enum.sum()
+```
+
+```elixir
+defmodule Wrapper do
+  def some_fun(a, b, c) do
+    IO.inspect(binding(), label: "vals:")
+  end
+end
+
+Wrapper.some_fun(:a, :b, "c")
+```
+
+```elixir
+# def some_fun(a, b, c) do
+#   require IEx; IEx.pry
+#   ...
+# end
+```
+
+```elixir
+# :observer.start()
+```
+
+## Typespecs and behaviours
+
+```elixir
+# round(number()) :: integer()
+```
+
+```elixir
+defmodule Person do
+  @typedoc """
+  A 4 digit year, e.g. 1984
+  """
+  @type year :: integer
+
+  @spec current_age(year) :: integer
+  # implementation
+  def current_age(year_of_birth) do
+    year_of_birth
+  end
+end
+```
+
+```elixir
+# @type error_map :: %{
+#    message: String.t,
+#    line_number: integer
+# }
+```
+
+```elixir
+defmodule LousyCalculator do
+  @typedoc """
+  Just a number followed by a string.
+  """
+  @type number_with_remark :: {number, String.t()}
+
+  @spec add(number, number) :: number_with_remark
+  def add(x, y), do: {x + y, "You need a calculator to do that?"}
+
+  @spec multiply(number, number) :: number_with_remark
+  def multiply(x, y), do: {x * y, "It is like addition on steroids."}
+end
+```
+
+```elixir
+defmodule QuietCalculator do
+  @spec add(number, number) :: number
+  def add(x, y), do: make_quiet(LousyCalculator.add(x, y))
+
+  @spec make_quiet(LousyCalculator.number_with_remark()) :: number
+  defp make_quiet({num, _remark}), do: num
+end
+```
+
+```elixir
+QuietCalculator.add(2, 3)
+```
+
+```elixir
+defmodule Parser do
+  @doc """
+  Parses a string.
+  """
+  @callback parse(String.t()) :: {:ok, term} | {:error, String.t()}
+
+  @doc """
+  Lists all supported file extensions.
+  """
+  @callback extensions() :: [String.t()]
+end
+```
+
+```elixir
+defmodule JSONParser do
+  @behaviour Parser
+
+  @impl Parser
+  # ... parse JSON
+  def parse(str), do: {:ok, "some json " <> str}
+
+  @impl Parser
+  def extensions, do: ["json"]
+end
+```
+
+```elixir
+defmodule YAMLParser do
+  @behaviour Parser
+
+  @impl Parser
+  # ... parse YAML
+  def parse(str), do: {:ok, "some yaml " <> str}
+
+  @impl Parser
+  def extensions, do: ["yml"]
+end
+```
+
+```elixir
+defmodule BADParser do
+  @behaviour Parser
+
+  @impl Parser
+  def parse, do: {:ok, "something bad"}
+
+  @impl Parser
+  def extensions, do: ["bad"]
+end
+```
+
+```elixir
+defmodule Parser do
+  @callback parse(String.t()) :: {:ok, term} | {:error, String.t()}
+  @callback extensions() :: [String.t()]
+
+  def parse!(implementation, contents) do
+    case implementation.parse(contents) do
+      {:ok, data} -> data
+      {:error, error} -> raise ArgumentError, "parsing error: #{error}"
+    end
+  end
+end
+```
+
+## Where to go next
+
+```elixir
+
+```
