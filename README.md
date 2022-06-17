@@ -10,7 +10,7 @@ to install, and get started
 
 `elixir SCRIPT.exs` | Run an elixir script
 
-`elixirc __.ex` | build an elixir file. Not .exs vs .ex is convention, but doesn't do anything
+`elixirc __.ex` | build an elixir file. Note .exs vs .ex is convention, but doesn't do anything
 
 `iex` | interactive shell
 
