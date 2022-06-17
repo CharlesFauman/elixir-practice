@@ -59,6 +59,8 @@ ElixirLS | https://thinkingelixir.com/elixir-in-vs-code/#Elixir_development_exte
 
 Livebook for VSCode | https://marketplace.visualstudio.com/items?itemName=josecfreittas.livebook
 
+vscode-elixir | https://github.com/timmhirsens/vscode-elixir
+
 
 ### Livebook
 https://github.com/livebook-dev/livebook
